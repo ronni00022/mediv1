@@ -36,7 +36,7 @@ def login(email:str, clave:str):
     conexion.commit()
     datos=registro.fetchall()
     for I in datos:
-        return {"ID":I[0],"NOMBRE":I[1]}
+        return {"ID":I[0],"NOMBRE":I[1],"CORREO":I[2],"CLAVE":I[3]}
 
 @app.get('/api/paciente/{cedula}/{nombre}/{apellido}/{email}/{sexo}/{fecha}/{alergias}/{id_doctor}/{zodiac}')
 def paciente(cedula: str, nombre: str, apellido: str, email:str, sexo:str, fecha:str, alergias:str, id_doctor:str, zodiac:str):

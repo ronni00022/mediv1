@@ -61,4 +61,3 @@ def consultar(id_doctor:str, paciente_id: str , fecha:str , seguro:str , motivo:
 
 
 
-

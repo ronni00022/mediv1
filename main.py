@@ -38,19 +38,19 @@ def login(email:str, clave:str):
     for I in datos:
         return {"ID":I[0],"NOMBRE":I[1],"CORREO":I[2],"CLAVE":I[3]}
 
-@app.get('/api/paciente/{cedula}/{nombre}/{apellido}/{email}/{sexo}/{fecha}/{alergias}/{id_doctor}/{zodiac}')
-def paciente(cedula: str, nombre: str, apellido: str, email:str, sexo:str, fecha:str, alergias:str, id_doctor:str, zodiac:str):
+@app.get('/api/paciente/{cedula}/{nombre}/{apellido}/{email}/{sexo}/{fecha}/{alergias}/{id_doctor}/{zodiac}/{sangre}')
+def paciente(cedula: str, nombre: str, apellido: str, email:str, sexo:str, fecha:str, alergias:str, id_doctor:str, zodiac:str, sangre:str):
     conexion=sqlite3.connect('app.db')
     registro=conexion.cursor()
 
-    info=(cedula,nombre,apellido,email,sexo,fecha,alergias,id_doctor,zodiac)
-    sql= ''' INSERT INTO PACIENTE (CEDULA,NOMBRE,APELLIDO,EMAIL,SEXO,FECHA,ALERGIAS,ID_DOCTOR, ZODIACO) VALUES (?,?,?,?,?,?,?,?,?) '''
+    info=(cedula,nombre,apellido,email,sexo,fecha,alergias,id_doctor,zodiac,sangre)
+    sql= ''' INSERT INTO PACIENTE (CEDULA,NOMBRE,APELLIDO,EMAIL,SEXO,FECHA,ALERGIAS,ID_DOCTOR, ZODIACO,SANGRE) VALUES (?,?,?,?,?,?,?,?,?,?) '''
     registro.execute(sql,info)
     conexion.commit()
     return {"PACIENTE REGISTRADO"}
 
-@app.get('/api/consultar/{id_doctor}/{paciente_id}/{fecha}/{seguro}/{motivo}/{diagnostico}/{nota}')
-def consultar(id_doctor:str, paciente_id: str , fecha:str , seguro:str , motivo:str , diagnostico:str , nota:str):
+@app.get('/api/consultar/{id_doctor}/{paciente_id}/{fecha}/{seguro}/{motivo}/{diagnostico}/{nota}/{monto}')
+def consultar(id_doctor:str, paciente_id: str , fecha:str , seguro:str , motivo:str , diagnostico:str , nota:str,monto:str):
     conexion=sqlite3.connect('app.db')
     registro=conexion.cursor()
     registro.execute("SELECT * FROM PACIENTE WHERE ID_PACIENTE='"+paciente_id+"'")
@@ -60,8 +60,8 @@ def consultar(id_doctor:str, paciente_id: str , fecha:str , seguro:str , motivo:
         sexo=i[5]
         fecha_p=i[6]
         cedula=i[1]
-    info=(id_doctor,paciente_id,fecha,seguro,motivo,diagnostico,nota,nombre,sexo,fecha_p,cedula)
-    sql='''INSERT INTO CONSULTA (ID_DOCTOR,PACIENTE_ID,FECHA,SEGURO,MOTIVO,DIAGNOSTICO,NOTA,NOMBRE_P,SEXO_P,FECHA_P,CEDULA) VALUES (?,?,?,?,?,?,?,?,?,?,?) '''
+    info=(id_doctor,paciente_id,fecha,seguro,motivo,diagnostico,nota,nombre,sexo,fecha_p,cedula,monto)
+    sql='''INSERT INTO CONSULTA (ID_DOCTOR,PACIENTE_ID,FECHA,SEGURO,MOTIVO,DIAGNOSTICO,NOTA,NOMBRE_P,SEXO_P,FECHA_P,CEDULA,MONTO) VALUES (?,?,?,?,?,?,?,?,?,?,?,?) '''
     registro.execute(sql,info)
     conexion.commit()
     return {"DATOS INSETADOS"}

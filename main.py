@@ -141,6 +141,6 @@ def con_p(id_doctor:str):
     conexion.commit()
     datos=registro.fetchall()
     for I in datos:
-        A.append({"ID":I[0],"CEDULA":I[1],"NOMBRE":I[2],"APELLIDO":I[3],"EMAIL":I[4],"SEXO":I[5],"ALERGIAS":I[7],"SANGRE":I[8]})
+        A.append({"ID":I[0],"CEDULA":I[1],"NOMBRE":I[2],"APELLIDO":I[3],"EMAIL":I[4],"SEXO":I[5],"ALERGIAS":I[7],"SANGRE":I[10]})
     return A
 

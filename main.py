@@ -96,7 +96,7 @@ def consultar_visitas(id_paciente: str):
     A=[]
     conexion=sqlite3.connect('app.db')
     registro=conexion.cursor()
-    registro.execute("SELECT NOMBRE_P, COUNT(PACIENTE_ID) FROM CONSULTA WHERE PACIENTE_ID ='"+id_paciente+"' GROUP BY NOMBRE_P")
+    registro.execute("SELECT NOMBRE_P, COUNT(PACIENTE_ID) FROM CONSULTA WHERE ID_DOCTOR ='"+id_paciente+"' GROUP BY NOMBRE_P")
     conexion.commit()
     datos=registro.fetchall()
     for i in datos:

@@ -2,6 +2,7 @@ import requests
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
+import json
 
 app = FastAPI()
 origins = ["*"]
@@ -13,6 +14,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.get('/api')
 def read_root():
@@ -143,4 +145,16 @@ def con_p(id_doctor:str):
     for I in datos:
         A.append({"ID":I[0],"CEDULA":I[1],"NOMBRE":I[2],"APELLIDO":I[3],"EMAIL":I[4],"SEXO":I[5],"ALERGIAS":I[7],"SANGRE":I[10]})
     return A
+@app.get('/api/a_v/{id_doctor}/{id_c}')
+def a_c(id_doctor:str,id_c:str):
+    A=[]
+    conexion=sqlite3.connect('app.db')
+    registro=conexion.cursor()
+    registro.execute("SELECT * FROM CONSULTA WHERE ID_DOCTOR='"+id_doctor+"' AND ID_CONSULTA='"+id_c+"'")
+    conexion.commit()
+    datos=registro.fetchall()
+    for I in datos:
+        A.append({"ID":I[0],"FECHA":I[7],"SEGURO":I[8],"MOTIVO":I[9],"DIAG":I[10],"NOTA":I[11],"MONTO":I[12]})
+    return A
+
 

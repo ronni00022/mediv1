@@ -156,5 +156,15 @@ def a_c(id_doctor:str,id_c:str):
     for I in datos:
         A.append({"ID":I[0],"FECHA":I[7],"SEGURO":I[8],"MOTIVO":I[9],"DIAG":I[10],"NOTA":I[11],"MONTO":I[12]})
     return A
-
+@app.get('/api/a_p/{id_doctor}/{id_p}')
+def a_p(id_doctor:str,id_p:str):
+    A=[]
+    conexion=sqlite3.connect('app.db')
+    registro=conexion.cursor()
+    registro.execute("SELECT * FROM PACIENTE WHERE ID_DOCTOR ='"+id_doctor+"' AND ID_PACIENT='"+id_p+"'")
+    conexion.commit()
+    datos=registro.fetchall()
+    for I in datos:
+        A.append({"ID":I[0],"CEDULA":I[1],"NOMBRE":I[2],"APELLIDO":I[3],"EMAIL":I[4],"SEXO":I[5],"ALERGIAS":I[7],"SANGRE":I[10]})
+    return A
 

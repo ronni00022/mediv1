@@ -122,11 +122,11 @@ def actualizar_consultar(campo: str, cambios: str, consulta_id: str, doctor_id: 
     return {'detail': 'Actualizados'}
 
 @app.get('/api/con_v/{id_doctor}')
-def con_v(id:str):
+def con_v(id_doctor:str):
     A=[]
     conexion=sqlite3.connect('app.db')
     registro=conexion.cursor()
-    registro.execute("SELECT * FROM CONSULTA WHERE ID_DOCTOR='"+id+"'")
+    registro.execute("SELECT * FROM CONSULTA WHERE ID_DOCTOR='"+id_doctor+"'")
     conexion.commit()
     datos=registro.fetchall()
     for I in datos:

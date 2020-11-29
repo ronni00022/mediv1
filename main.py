@@ -161,7 +161,7 @@ def a_p(id_doctor:str,id_p:str):
     A=[]
     conexion=sqlite3.connect('app.db')
     registro=conexion.cursor()
-    registro.execute("SELECT * FROM PACIENTE WHERE ID_DOCTOR ='"+id_doctor+"' AND ID_PACIENT='"+id_p+"'")
+    registro.execute("SELECT * FROM PACIENTE WHERE ID_DOCTOR ='"+id_doctor+"' AND ID_PACIENTE='"+id_p+"'")
     conexion.commit()
     datos=registro.fetchall()
     for I in datos:

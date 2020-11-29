@@ -120,3 +120,27 @@ def actualizar_consultar(campo: str, cambios: str, consulta_id: str, doctor_id: 
     registro.execute(query)
     conexion.commit()
     return {'detail': 'Actualizados'}
+
+@app.get('/api/con_v/{id_doctor}')
+def con_v(id:str):
+    A=[]
+    conexion=sqlite3.connect('app.db')
+    registro=conexion.cursor()
+    registro.execute("SELECT * FROM CONSULTA WHERE ID_DOCTOR='"+id+"'")
+    conexion.commit()
+    datos=registro.fetchall()
+    for I in datos:
+        A.append({"ID":I[0],"FECHA":I[7],"SEGURO":I[8],"MOTIVO":I[9],"DIAG":I[10],"NOTA":I[11],"MONTO":I[12]})
+    return A
+@app.get('/api/con_p/{id_doctor}')
+def con_p(id_doctor:str):
+    A=[]
+    conexion=sqlite3.connect('app.db')
+    registro=conexion.cursor()
+    registro.execute("SELECT * FROM PACIENTE WHERE ID_DOCTOR ='"+id_doctor+"'")
+    conexion.commit()
+    datos=registro.fetchall()
+    for I in datos:
+        A.append({"ID":I[0],"CEDULA":I[1],"NOMBRE":I[2],"APELLIDO":I[3],"EMAIL":I[4],"SEXO":I[5],"ALERGIAS":I[7],"SANGRE":I[8]})
+    return A
+
